@@ -478,19 +478,6 @@
 )
 
 
-
-; EXERCISE: Change the name of this function to h<UID> where
-; <UID> is your actual student ID number. Then, modify this
-; function to compute an admissible heuristic value of s.
-;
-; This function will be entered in the competition.
-; Objective: make A* solve problems as fast as possible.
-; The Lisp 'time' function can be used to measure the
-; running time of a function call.
-;
-
-; HELPER FUNCTIONS FOR h504487052
-
 ; Helper function for getBoxPosition
 ; Uses recursion to return a column of r if that column contains a box
 ; Based off of getKeeperColumn
