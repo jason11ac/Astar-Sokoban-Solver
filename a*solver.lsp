@@ -1,34 +1,3 @@
-;
-; CS161 Hw3: Sokoban
-;
-; *********************
-;    READ THIS FIRST
-; *********************
-;
-; All functions that you need to modify are marked with 'EXERCISE' in their header comments.
-; Do not modify a-star.lsp.
-; This file also contains many helper functions. You may call any of them in your functions.
-;
-; *Warning*: The provided A* code only supports the maximum cost of 4999 for any node.
-; That is f(n)=g(n)+h(n) < 5000. So, be careful when you write your heuristic functions.
-; Do not make them return anything too large.
-;
-; For Allegro Common Lisp users: The free version of Allegro puts a limit on memory.
-; So, it may crash on some hard sokoban problems and there is no easy fix (unless you buy
-; Allegro).
-; Of course, other versions of Lisp may also crash if the problem is too hard, but the amount
-; of memory available will be relatively more relaxed.
-; Improving the quality of the heuristic will mitigate this problem, as it will allow A* to
-; solve hard problems with fewer node expansions.
-;
-; In either case, this limitation should not significantly affect your grade.
-;
-; Remember that most functions are not graded on efficiency (only correctness).
-; Efficiency can only influence your heuristic performance in the competition (which will
-; affect your score).
-;
-;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; General utility functions
@@ -168,16 +137,7 @@
 	);end cond
   );end
 
-; EXERCISE: Modify this function to return true (t)
-; if and only if s is a goal state of a Sokoban game.
-; (no box is on a non-goal square)
-;
-; Currently, it always returns NIL. If A* is called with
-; this function as the goal testing function, A* will never
-; terminate until the whole search space is exhausted.
-;
-; Returns true (t) if and only if s is a goal state of a Sokoban game
-;
+
 ; goal-test uses recursion to check the top left corner square of a passed in state s for a box
 ; If the top left corner (first (first s)) is not a box, then it passed everything but the top left
 ; corner to goal-test again so that the whole state is checked for boxes recursively.
@@ -224,26 +184,6 @@
     )
 
 )
-
-; EXERCISE: Modify this function to return the list of
-; sucessor states of s.
-;
-; This is the top-level next-states (successor) function.
-; Some skeleton code is provided below.
-; You may delete them totally, depending on your approach.
-;
-; If you want to use it, you will need to set 'result' to be
-; the set of states after moving the keeper in each of the 4 directions.
-; A pseudo-code for this is:
-;
-; ...
-; (result (list (try-move s UP) (try-move s DOWN) (try-move s LEFT) (try-move s RIGHT)))
-; ...
-;
-; You will need to define the function try-move and decide how to represent UP,DOWN,LEFT,RIGHT.
-; Any NIL result returned from try-move can be removed by cleanUpList.
-;
-;
 
 ; Returns a list of sucessor states of s
 ;
@@ -454,19 +394,12 @@
 
 
 
-
-
-
-; EXERCISE: Modify this function to compute the trivial
-; admissible heuristic.
-;
 ; Trivial admissible heuristic that always returns 0
 (defun h0 (s)
   0
   )
 
-; EXERCISE: Modify this function to compute the
-; number of misplaced boxes in s.
+; Heuristic that computes the number of misplaced boxes in s.
 ;
 ; Yes, h1 is admissible because it will take at least one move per box to move the boxes over a goal, giving us a goal state.
 ; Therefore, counting each non-goal box will give us a lower bound on the number of moves until a goal state.
@@ -615,22 +548,6 @@
 
 #|
  | Some predefined problems.
- | Each problem can be visualized by calling (printstate <problem>). For example, (printstate p1).
- | Problems are roughly ordered by their difficulties.
- | For most problems, we also privide 2 additional number per problem:
- |    1) # of nodes expanded by A* using our next-states and h0 heuristic.
- |    2) the depth of the optimal solution.
- | These numbers are located at the comments of the problems. For example, the first problem below
- | was solved by 80 nodes expansion of A* and its optimal solution depth is 7.
- |
- | Your implementation may not result in the same number of nodes expanded, but it should probably
- | give something in the same ballpark. As for the solution depth, any admissible heuristic must
- | make A* return an optimal solution. So, the depths of the optimal solutions provided could be used
- | for checking whether your heuristic is admissible.
- |
- | Warning: some problems toward the end are quite hard and could be impossible to solve without a good heuristic!
- |
- |#
 
 ;(80,7)
 (setq p1 '((1 1 1 1 1 1)
